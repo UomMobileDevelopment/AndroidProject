@@ -15,10 +15,20 @@ _Trivia:_
 
 Παραδείγματα κλήσης στο api θα βρείτε εδώ https://sandbox.amadeus.com/travel-innovation-sandbox/apis/get/flights/low-fare-search
 
-Ένα παράδειγμα με το δικό μου ApiKey με το οποίο ψάχνω πτήση απο Θεσσαλονίκη για Ντύσελντορφ στις 25 Νοεμβρίου με επιστροφή στις 28 για ένα άτομο χωρίς ενδιάμεσες στάσεις με τιμές σε νόμισμα Ευρώ (θέλω το πολύ 10 αποτελέσματα):
+Ένα παράδειγμα με το δικό μου ApiKey με το οποίο ψάχνω πτήση απο Θεσσαλονίκη για Ντύσελντορφ στις 25 Νοεμβρίου με επιστροφή στις 28 για ένα άτομο χωρίς ενδιάμεσες στάσεις με τιμές σε νόμισμα Ευρώ με όριο τα 400 ευρώ (και το πολύ 10 αποτελέσματα):
 
 ```
-https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=ZDc00QOByB4h87Lp96mXyJyxHP29OjqZ&origin=SKG&destination=DUS&departure_date=2016-11-25&return_date=2016-11-28&adults=1&nonstop=true&max_price=400&currency=EUR&number_of_results=10
+https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?
+apikey=YOUR_KEY
+&origin=SKG
+&destination=DUS
+&departure_date=2016-11-25
+&return_date=2016-11-28
+&adults=1
+&nonstop=true
+&max_price=400
+&currency=EUR
+&number_of_results=10
 ```
 
 το σύστημα της Amadeus μου απάντησε:
@@ -98,7 +108,7 @@ https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=ZDc00QOByB4h
 Μελετώντας το ερώτημα αλλά και τα αποτελέσματα σύντομα θα καταλάβετε ότι για να τα παρουσιάσετε σωστά πρέπει να μπορείτε να βρείτε όλους τους κωδικούς των αεροδρομίων και των αεροπορικών εταιρειών. Για παράδειγμα ο χρήστης δε θα γράψει ότι θέλέι να πετάξει στο SKG, θα γράψει: ```thessaloniki```. Θα πρέπει εσείς εσωτερικά να κάνετε τη μετατροπή απο thessaloniki σε SKG. To Amadeus έχει τη λύση και γι'αυτό, καθώς παρέχει ειδικό API αναζήτησης:
 
 ```
-https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=ZDc00QOByB4h87Lp96mXyJyxHP29OjqZ&term=thess
+https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=thess
 ```
 
 Αποτέλεσμα:
@@ -115,7 +125,7 @@ https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=ZDc00QOByB4h87
 μπορεί να υπάρχουν και πολλαπλά αποτελέσματα:
 
 ```
-https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=ZDc00QOByB4h87Lp96mXyJyxHP29OjqZ&term=lond
+https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=lond
 ```
 
 
@@ -136,42 +146,75 @@ https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=ZDc00QOByB4h87
   {
     "value": "LTN",
     "label": "London - Luton Airport [LTN]"
-  },
-  {
-    "value": "LCY",
-    "label": "London City Airport [LCY]"
-  },
-  {
-    "value": "STN",
-    "label": "London - Stansted Airport [STN]"
-  },
-  {
-    "value": "OXF",
-    "label": "London Oxford Airport [OXF]"
-  },
-  {
-    "value": "LDB",
-    "label": "Londrina Aeroporto [LDB]"
-  },
-  {
-    "value": "ELS",
-    "label": "East London Airport [ELS]"
-  },
-  {
-    "value": "YXU",
-    "label": "London International Airport [YXU]"
-  },
-  {
-    "value": "LDZ",
-    "label": "Londolozi Private Game Reserve - Londolozi Airport [LDZ]"
-  },
-  {
-    "value": "SEN",
-    "label": "London Southend Airport [SEN]"
-  },
-  {
-    "value": "LNV",
-    "label": "Londolovit - Lihir Island / Kunaye Airport [LNV]"
   }
+  .... έχει κι άλλα...
 ]
 ```
+
+Αυτό που μας μένει τώρα είναι να αποκωδικοποιήσουμε και τον κωδικό της αεροπορικής εταιρείας. Αν προσέξατε στα αποτελέσματα πτήσεων πιο πάνω, έγραφαν:
+
+```
+"operating_airline": "A3"
+```
+Α3, είναι ο κωδικός ΙΑΤΑ για την 'Aegean Airlines'. Αλλά πως θα ξέρουμε την αντιστοιχία για όλες τις αεροπορικές εταιρείες; 
+
+Σωστά μαντέψατε! Υπάρχει και γι'αυτό API !! Βρίσκεται εδώ: http://iatacodes.org/ και απαιτεί και αυτό δημιουργία λογαριασμού. 
+
+Για να πάρουμε πληροφορίες για τον κωδικό Α3 καλούμε την εντολή:
+
+```
+https://iatacodes.org/api/v6/airlines?api_key=YOUR_KEY&code=A3
+```
+
+και παίρνουμε σαν απάντηση:
+
+```
+{
+  "request": {
+    "lang": "en",
+    "currency": "USD",
+    "time": 1,
+    "id": 14776805923,
+    "server": "c",
+    "pid": 41988,
+    "key": {
+      "id": 6439,
+      "api_key": ".......το κλειδί του καθενός....",
+      "type": "free",
+      "expired": null,
+      "registered": "2016-10-28T18:25:52.000Z",
+      "limits_by_hour": 2500,
+      "limits_by_minute": 250,
+      "usage_by_hour": 10,
+      "usage_by_minute": 1
+    },
+    "params": {
+      "code": "A3",
+      "lang": "en"
+    },
+    "version": 6,
+    "method": "airlines"
+    }
+  },
+  "response": [
+    {
+      "code": "A3",
+      "name": "Aegean Airlines",
+      "country_code": "GR",
+      "country_name": "Greece"
+    }
+  ]
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
