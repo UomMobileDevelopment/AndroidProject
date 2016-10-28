@@ -108,7 +108,7 @@ apikey=YOUR_KEY
 Μελετώντας το ερώτημα αλλά και τα αποτελέσματα σύντομα θα καταλάβετε ότι για να τα παρουσιάσετε σωστά πρέπει να μπορείτε να βρείτε όλους τους κωδικούς των αεροδρομίων και των αεροπορικών εταιρειών. Για παράδειγμα ο χρήστης δε θα γράψει ότι θέλέι να πετάξει στο SKG, θα γράψει: ```thessaloniki```. Θα πρέπει εσείς εσωτερικά να κάνετε τη μετατροπή απο thessaloniki σε SKG. To Amadeus έχει τη λύση και γι'αυτό, καθώς παρέχει ειδικό API αναζήτησης:
 
 ```
-https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=thess
+https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=thessaloniki
 ```
 
 Αποτέλεσμα:
@@ -125,7 +125,7 @@ https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=
 μπορεί να υπάρχουν και πολλαπλά αποτελέσματα:
 
 ```
-https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=lond
+https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=YOUR_KEY&term=london
 ```
 
 
@@ -208,12 +208,13 @@ https://iatacodes.org/api/v6/airlines?api_key=YOUR_KEY&code=A3
 
 ```
 
+##Σύνοψη:
 
+### Αφήστε τη φαντασία σας ελεύθερη! 
+### Φτιάξτε το δικό σας Android interface για να δώσετε στους χρήστες ανεπανάληπτη εμπειρία αναζήτησης πτήσεων!
+### Χρησιμοποιήστε όλα τα ανωτέρω API για να παρουσιάσετε σωστά τα αποτελέσματα
 
-
-
-
-
+Συζήτηση απορίες στο Facebook
 
 
 
